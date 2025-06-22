@@ -13,7 +13,7 @@ promote_products_free_gluten = ["1043", "1042", "1039"]
 def get_client_es():
     with open("../config.yml", "r") as file:
         config = yaml.safe_load(file)
-    return Elasticsearch(cloud_id=config["cloud_id"], api_key=config["api_key"])
+    return Elasticsearch(config["cloud_url"], api_key=config["api_key"])
 
 
 def get_text_vector(sentences):
@@ -127,7 +127,7 @@ def search_products(
         }
 
     print(query)
-    response = get_client_es().search(index="products-catalog", body=query, size=20)
+    response = get_client_es().search(index="products-catalog-2", body=query, size=20)
 
     results = []
     for hit in response["hits"]["hits"]:
@@ -158,7 +158,7 @@ def get_facets_data(term, categories=None, product_types=None, brands=None):
         "categories": {"terms": {"field": "category"}},
         "brands": {"terms": {"field": "brand.keyword"}},
     }
-    response = get_client_es().search(index="products-catalog", body=query, size=0)
+    response = get_client_es().search(index="products-catalog-2", body=query, size=0)
 
     return {
         "product_types": [

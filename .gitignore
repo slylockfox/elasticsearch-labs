@@ -11,3 +11,5 @@ test/nbtest/dist
 venv
 .venv
 .env*
+supporting-blog-content/hybrid-search-for-an-e-commerce-product-catalogue/app-product-store/node_modules/.package-lock.json
+supporting-blog-content/hybrid-search-for-an-e-commerce-product-catalogue/app-product-store/node_modules/

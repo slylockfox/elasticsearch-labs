@@ -1,7 +1,7 @@
 import yaml
 from elasticsearch import Elasticsearch
 
-index_name = "products-catalog"
+index_name = "products-catalog-2"
 mapping = {
     "settings": {
         "index": {
