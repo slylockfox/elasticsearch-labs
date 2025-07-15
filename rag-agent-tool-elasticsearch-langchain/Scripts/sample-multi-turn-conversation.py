@@ -1,14 +1,15 @@
 import os
 from openai import AzureOpenAI
 from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv())
+load_dotenv() # load_dotenv(find_dotenv())
 
 endpoint = "https://snyder-openai.openai.azure.com/"
 model_name = "gpt-4o"
 deployment = "Snyder-OpenAI-deployment"
 
 subscription_key = os.getenv("AZURE_OPENAI_API_KEY")
-api_version = "2024-12-01-preview"
+api_version = os.getenv("AZURE_OPENAI_API_VERSION") # not 
+print ("api version: ", api_version)
 
 client = AzureOpenAI(
     api_version=api_version,
