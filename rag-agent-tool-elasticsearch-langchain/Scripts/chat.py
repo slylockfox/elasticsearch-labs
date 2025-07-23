@@ -186,7 +186,7 @@ agent_chain = initialize_agent(
 
 # Interactive conversation with the agent
 def main():
-    with get_openai_callback() as cb:
+    with get_openai_callback() as cb: # reference about callback: https://python.langchain.com/docs/integrations/chat/azure_chat_openai/
         print("Welcome to the chat agent. Type 'exit' to quit.")
         while True:
             user_input = input("You: ")
@@ -195,7 +195,7 @@ def main():
                 break
             response = agent_chain.run(input=user_input)
             print("Assistant:", response)
-        print(f"Total Cost (USD): ${format(cb.total_cost, '.6f')}")
+            print(f"Total Cost (USD): ${format(cb.total_cost, '.6f')}")
 
 if __name__ == "__main__":
     main()
