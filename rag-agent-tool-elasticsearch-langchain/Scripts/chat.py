@@ -8,6 +8,7 @@ from langchain_community.tools import StructuredTool  # Import StructuredTool
 from langchain.memory import ConversationBufferMemory
 from typing import Optional
 from pydantic import BaseModel, Field
+from langchain_community.callbacks import get_openai_callback
 
 # LLM setup
 llm = AzureChatOpenAI(
@@ -185,14 +186,16 @@ agent_chain = initialize_agent(
 
 # Interactive conversation with the agent
 def main():
-    print("Welcome to the chat agent. Type 'exit' to quit.")
-    while True:
-        user_input = input("You: ")
-        if user_input.lower() in ['exit', 'quit']:
-            print("Goodbye!")
-            break
-        response = agent_chain.run(input=user_input)
-        print("Assistant:", response)
+    with get_openai_callback() as cb:
+        print("Welcome to the chat agent. Type 'exit' to quit.")
+        while True:
+            user_input = input("You: ")
+            if user_input.lower() in ['exit', 'quit']:
+                print("Goodbye!")
+                break
+            response = agent_chain.run(input=user_input)
+            print("Assistant:", response)
+        print(f"Total Cost (USD): ${format(cb.total_cost, '.6f')}")
 
 if __name__ == "__main__":
     main()
